@@ -1,6 +1,6 @@
-#Trabalho de Arquitetura
+# Trabalho de Arquitetura
 
-##Prof. Yuri Lenon
+## Prof. Yuri Lenon
 
 Data de entrega: 26 de junho de 2020
 
