@@ -71,7 +71,8 @@ def criar_arquivo():
     global contador_bytes
     #nessa função temos que gravar os bytes no arquivo, incluindo os bits de inicialização
     bytes_gravacao = bytearray()    # array de bytes que será escrita no arquivo
-    tamanho_arquivo = (contador_bytes + 20).to_bytes(4, "little", signed = True)  # os primeiros 4 bits do arquivo é o tamanho dele
+    tamanho_arquivo = (contador_bytes + 20).to_bytes(4, "little", signed = True) 
+    # os primeiros 4 bits do arquivo é o tamanho dele
     bytes_gravacao += tamanho_arquivo
     inicializacao = [0x7300, 0x0006, 0x1001, 0x0400, 0x1001 + len(variaveis.keys())] 
     # bytes pré-definidos de inicialização, explicados na aula 14
@@ -95,7 +96,6 @@ def criar_arquivo():
     arquivo.close()
 
 ################################## começando o main #########################################
-
 
 
 txt = open(sys.argv[1], 'r')
