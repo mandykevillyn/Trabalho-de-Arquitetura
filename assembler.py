@@ -19,7 +19,7 @@ instrucoes = {  'nop': [0x01, []],
                 #'iinc': [0x36, ['varnum', 'const']],
                 'goto': [0x3C, ['offset']],
                 #'iflt': [0x43, ['offset']],
-                #'ifeq': [0x47,['offset']],
+                'ifeq': [0x47,['offset']], #testei e funciona
                 'if_icmpeq': [0x4B, ['offset']],
                 #'invokevirtual': [0x55, ['disp']],
                 #'ireturn': [0x6B, []]
