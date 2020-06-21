@@ -290,18 +290,12 @@ void alu(byte func, word a, word b)
 //e uma palavra (a entrada do deslocador) e coloca o resultado no barramento bus_c.
 void shift(byte s, word w)
 {   s = s & 0b11;
-
-    if (s==0b00){
-        bus_c = w;
-    }
-    if (s==0b10){
-        bus_c = w <<8;
-
-    }
     if (s==0b01){
-        bus_c = w >>1;
+        w = w <<8;
+    }else if (s==0b10){
+        w = w>>1;
     }
-
+    bus_c = w;
 }
 
 //Leitura de registradores. Recebe o número do registrador a ser lido (0 = mdr, 1 = pc, 2 = mbr, 3 = mbru, ..., 8 = opc) representado em um byte,
@@ -392,22 +386,19 @@ void mainmemory_io(byte control)
 //Define próxima microinstrução a ser executada. Recebe o endereço da próxima instrução a ser executada codificado em uma palavra (considera-se, portanto, apenas os 9 bits menos significativos)
 //e um modificador (regra de salto) codificado em um byte (considera-se, portanto, apenas os 3 bits menos significativos, ou seja JAMZ (bit 0), JAMN (bit 1) e JMPC (bit 2)), construindo e
 //retornando o endereço definitivo (codificado em uma word - desconsidera-se os 21 bits mais significativos (são zerados)) da próxima microinstrução.
-word next_address(word next, byte jam)
-{
+word next_address(word next, byte jam){ 
     next = next & 0b111111111;
     jam = jam & 0b111;
-    mpc = next;
 
-    switch (jam){
-    case 0b000: break;
-    case 0b001: next = mpc | (z << 8); break;
-    case 0b010: next = mpc | (n << 8); break;
-    case 0b100: next = mpc | mbr; break;
-
-    default: break;
+    if(jam & 0b001){
+        next = next | z<<8;
     }
-
-
+    if (jam&0b010){
+        next = next | n<<8;
+    }
+    if(jam &0b100){
+        next = next | mbr;
+    }
     return next;
 }
 
